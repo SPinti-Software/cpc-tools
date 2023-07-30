@@ -33,7 +33,9 @@ LDFLAGS	+= /SUBSYSTEM:CONSOLE
 endif
 
 include lib/build.mk
-include cpcmkiso/build.mk
+include mkiso/build.mk
+include mkdisk/build.mk
+include mngdisk/build.mk
 
 .PHONY: all
 all: $(TARGETS)

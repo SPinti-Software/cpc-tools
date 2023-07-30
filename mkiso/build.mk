@@ -6,9 +6,9 @@ endif
 
 cpcmkiso_SRCS	= main.c
 ifeq ($(OS),Windows_NT)
-cpcmkiso_OBJS	= $(addprefix cpcmkiso\, $(cpcmkiso_SRCS:.c=.obj))
+cpcmkiso_OBJS	= $(addprefix mkiso\, $(cpcmkiso_SRCS:.c=.obj))
 else
-cpcmkiso_OBJS	= $(addprefix cpcmkiso/, $(cpcmkiso_SRCS:.c=.obj))
+cpcmkiso_OBJS	= $(addprefix mkiso/, $(cpcmkiso_SRCS:.c=.obj))
 endif
 
 GARBADGES += $(cpcmkiso_OBJS)
