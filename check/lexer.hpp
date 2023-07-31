@@ -17,30 +17,30 @@
  * along with CpcTools.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include "base/cli.h"
+#ifndef CPCTOOLS_CHECK_LEXER_HPP
+# define CPCTOOLS_CHECK_LEXER_HPP 1
 
-static const CliArgument arguments[] = {
-  {0, NULL, 0, NULL}
+# include <fstream>
+# include <iostream>
+
+struct Token
+{
+  std::size_t length;
+  std::size_t line;
+  std::size_t col;
+
+  std::string value;
 };
 
-int
-main(int argc, char **argv)
+class Lexer
 {
-  int c;
+public:
+  Lexer(const std::ifstream &buff) : buffer(buff) {}
+  Token token();
+  ~Lexer() {}
 
-  set_program_name(argv[0]);
-  while ((c = cli_get_argument(arguments, argc, argv)) != EOF)
-    {
-      switch (c)
-	{
-	case 'v':
-	  break;
-	default:
-	  cli_usage(arguments, EXIT_FAILURE);
-	  break;
-	}
-    }
-  return (EXIT_SUCCESS);
-}
+private:
+  const std::ifstream &buffer;
+};
+
+#endif /* !CPCTOOLS_CHECK_LEXER_HPP */

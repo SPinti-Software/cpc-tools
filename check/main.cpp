@@ -19,10 +19,18 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "base/cli.h"
 
-static const CliArgument arguments[] = {
-  {0, NULL, 0, NULL}
+#include "base/cli.h"
+#include "lexer.hpp"
+
+static unsigned int max_line_length = 80;
+/*static int autoformat = 0;*/
+static const char *filename;
+
+static CliArgument arguments[] = {
+  {'l', "line-length", CLI_REQUIRED_VALUE, "set max line length (default: 80)"},
+  {'s', "style", CLI_NO_VALUE, "turn on coding style checking"},
+  {-1, nullptr, CLI_NO_VALUE, nullptr}
 };
 
 int
@@ -31,11 +39,14 @@ main(int argc, char **argv)
   int c;
 
   set_program_name(argv[0]);
+  set_program_desc("Check if CpcdosC+ code is valid and well formated");
+
   while ((c = cli_get_argument(arguments, argc, argv)) != EOF)
     {
       switch (c)
 	{
-	case 'v':
+	case 0:
+	  /* TODO: set filename */
 	  break;
 	default:
 	  cli_usage(arguments, EXIT_FAILURE);
